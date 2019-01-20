@@ -23,7 +23,9 @@ namespace cqhttp.Cyan.Instance {
         /// <summary></summary>
         public override async Task<ApiResult> SendRequestAsync (ApiRequest x) {
             var ret = await WSSendJson (accessUrl, x, accessToken);
-            await base.SendRequestAsync (x);
+            Task t = base.SendRequestAsync(x);
+            if (t != null)
+                await t;
             return ret;
         }
         
